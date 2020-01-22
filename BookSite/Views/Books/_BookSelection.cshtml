@@ -1,0 +1,84 @@
+﻿@model BookDAL.BookDetail
+<style type="text/css">
+
+    .Record {
+        margin: auto;
+        /*padding: 10px;*/
+        background-color: lightgoldenrodyellow;
+        border-style: solid;
+        border-width: thin;
+        min-height:170px;
+    }
+
+    .CoverPicture {
+        width: 15%;
+        float: left;
+        border-right: double;
+        /*border-right: thin;*/
+        /*height: 200px;*/
+        margin: auto;
+        width: -moz-min-content; /* Firefox */
+        width: -webkit-min-content; /* Chrome */
+        width: min-content;
+    }
+    .CoverPicture img{
+        padding:5px;
+    }
+
+    .BookDetail {
+        margin-left: 15%;
+        /*min-height: 200px;*/
+    }
+        .BookDetail ul {
+            columns: 2;
+            -webkit-columns: 2;
+            -moz-columns: 2;
+        }
+    /*.BookDetail {
+        position: relative;
+        left: 80px;
+        top: 20px;
+        bottom: 50px;
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+        background-color: lightgoldenrodyellow;
+        border-style: solid;
+        border-width: thin;
+    }*/
+</style>
+<div class="Record">
+    <div class="CoverPicture">
+        <img src=@Model.ImageURL alt=@Model.BookTitle  />
+    </div>
+    <div class="BookDetail">
+        @using (Html.BeginForm("AddNewBook", "Books", FormMethod.Post))
+        {
+            <ul>
+                <li><label>Author : </label> @Model.Author</li>
+                <li><label>Title : </label> @Model.BookTitle</li>
+                <li><label>Pages : </label> @Model.NumberOfPages</li>
+                <li><label>Score on GoodReads : </label> @Model.GRScore / 5</li>
+                <li><label>Amount of reviews on GoodReads : </label> @Model.AmountOfGRReviews</li>
+                <li><label>Year of publication : </label> @Model.YearOfPublication</li>
+                <li><label>Genre : </label> @Model.Genre</li>
+            </ul>
+            @Html.HiddenFor(x => x.BookTitle)
+            @Html.HiddenFor(x => x.Author)
+            @Html.HiddenFor(x => x.ISBN)
+            @Html.HiddenFor(x => x.DateStarted)
+            @Html.HiddenFor(x => x.Score)
+            @Html.HiddenFor(x => x.GoodreadsID)
+            @Html.HiddenFor(x => x.YearOfPublication)
+            @Html.HiddenFor(x => x.AmountOfGRReviews)
+            @Html.HiddenFor(x => x.GRScore)
+            @Html.HiddenFor(x => x.ImageURL)
+            @Html.HiddenFor(x => x.NumberOfPages)
+            @Html.HiddenFor(x => x.Genre)
+            @Html.HiddenFor(x => x.Display)
+            
+            <input type="submit" value="This one" class="btn btn-primary btn-large">
+        }
+
+    </div>
+</div>

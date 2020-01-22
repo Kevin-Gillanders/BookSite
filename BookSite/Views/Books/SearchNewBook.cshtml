@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "AddNewBook";
+}
+
+    <h2>Add a new book</h2>
+
+<div id="SearchForBook">
+
+    <p>
+        @using(Html.BeginForm("SelectNewBook", "Books", FormMethod.Get))
+        {
+            <input type="text" name="Title" placeholder="Enter book title">
+            <button type="submit">Add book</button>
+        }
+    </p>
+</div>

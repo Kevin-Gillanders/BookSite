@@ -1,0 +1,12 @@
+﻿@model List<BookDAL.BookDetail>
+
+@{
+    ViewBag.Title = "SelectBook";
+}
+
+<h2>Select Book</h2>
+
+@foreach (BookDAL.BookDetail book in Model)
+{
+    @Html.Partial("_BookSelection", book)
+}
