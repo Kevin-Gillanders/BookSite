@@ -12,4 +12,6 @@ The books can be viewed in the details section, where the user can
 3. Remove a book. If a book was selected by accident, the user can select this option. This does not delete the record from the database only sets a display flag to false on the database.
 
 
-This project is written in .NET framework 4.7.2 using Visural Studio 2019
+This project is written in .NET framework 4.7.2 using Visural Studio 2019 
+
+I've excluded the webconfig for security reasons send me an email at kopo222 (AT) gmail (dot) com if you are interesed in working with this
