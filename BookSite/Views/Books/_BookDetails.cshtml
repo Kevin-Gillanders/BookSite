@@ -86,13 +86,14 @@
                                    formmethod="post"
                                    value="Give up"
                                    class="btn btn-primary btn-large" />
+
+                            <input type="submit"
+                                   formaction="Delete"
+                                   formmethod="post"
+                                   value="Remove this"
+                                   class="btn btn-primary btn-large"
+                                   onclick="return confirm('Are you sure?');"/>
                         }
-                        <input type="submit"
-                               formaction="Delete"
-                               formmethod="post"
-                               value="Remove this"
-                               class="btn btn-primary btn-large"
-                               onclick="return confirm('Are you sure?');"/>
                     }
 
                 </div>
