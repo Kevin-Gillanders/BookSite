@@ -13,5 +13,3 @@ The books can be viewed in the details section, where the user can
 
 
 This project is written in .NET framework 4.7.2 using Visural Studio 2019 
-
-I've excluded the webconfig for security reasons send me an email at kopo222 (AT) gmail (dot) com if you are interesed in working with this
