@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SQLite;
 using System.Diagnostics;
@@ -14,7 +15,8 @@ public class Database
 
     public Database()
     {
-        string connectionString = @"C:\Projects\BookSite\Data\database.sqlite";
+        string connectionString = ConfigurationManager.AppSettings["connectionString"];
+
         conn = new SQLiteConnection(string.Format("Data Source={0};Version=3;", connectionString));
         CreateDataBase();
     }
