@@ -34,15 +34,6 @@ namespace BookDAL
         {
             try
             {
-                //var oldBook = _dbSet
-                //    .Where(x => x.ID == book.ID)
-                //    .FirstOrDefault();
-
-                //if (oldBook == null)
-                //    throw new ArgumentNullException();
-
-                //_context.Entry(oldBook).CurrentValues.SetValues(book);
-                //_context.SaveChanges();
                 _context.Update(book);
             }
             catch (Exception ex)

@@ -42,6 +42,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SQLite, Version=1.0.112.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Data.SQLite.Core.1.0.112.0\lib\net46\System.Data.SQLite.dll</HintPath>
@@ -62,7 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DatabaseController_old.cs" />
+    <Compile Include="Database.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DatabaseController.cs" />
   </ItemGroup>
@@ -77,10 +78,6 @@
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{e7181328-f17f-43c2-a714-ffc95a867f6d}</Project>
       <Name>Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Database\Database.csproj">
-      <Project>{4b0b8154-f94f-498f-b8e2-d229b668a6c7}</Project>
-      <Name>Database</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -6,8 +6,7 @@
     <div class="CoverPicture">
         <img src=@Model.ImageURL alt=@Model.BookTitle />
     </div>
-    <div class="BookDetail" >
-        <form>
+    <div class="BookDetail">
             <ul>
                 <li><label>Number : </label> @Model.ID</li>
                 <li><label>Author : </label> @Model.Author</li>
@@ -54,50 +53,14 @@
 
                 }
 
-                </ul>
+            </ul>
 
-                @Html.HiddenFor(x => x.ID)
-                @Html.HiddenFor(x => x.BookTitle)
-                @Html.HiddenFor(x => x.Author)
-                @Html.HiddenFor(x => x.ISBN)
-                @Html.HiddenFor(x => x.DateStarted)
-                @Html.HiddenFor(x => x.GoodreadsID)
-                @Html.HiddenFor(x => x.YearOfPublication)
-                @Html.HiddenFor(x => x.AmountOfGRReviews)
-                @Html.HiddenFor(x => x.GRScore)
-                @Html.HiddenFor(x => x.ImageURL)
-                @Html.HiddenFor(x => x.NumberOfPages)
-                @Html.HiddenFor(x => x.Genre)
-                @Html.HiddenFor(x => x.Display)
 
-                <div>
-                    @if (Model.Display)
-                    {
-                        if (!Model.Completed && Model.DateCompleted == null)
-                        {
-                            <input type="submit"
-                               formaction="Completed"
-                               formmethod="post"
-                               value="Complete"
-                               class="btn btn-primary btn-large" />
 
-                            <input type="submit"
-                                   formaction="GiveUp"
-                                   formmethod="post"
-                                   value="Give up"
-                                   class="btn btn-primary btn-large" />
+            <div>
+                @Html.ActionLink("Go to details page", "Details", "Books", null, new { @class = "btn btn-primary btn-large" })
+            </div>
 
-                            <input type="submit"
-                                   formaction="Delete"
-                                   formmethod="post"
-                                   value="Remove this"
-                                   class="btn btn-primary btn-large"
-                                   onclick="return confirm('Are you sure?');"/>
-                        }
-                    }
-
-                </div>
-            </form>
 
     </div>
 </div>
