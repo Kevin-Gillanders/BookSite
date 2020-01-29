@@ -4,9 +4,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SQLite;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 
 public class Database
@@ -17,6 +15,7 @@ public class Database
     {
         string connectionString = ConfigurationManager.AppSettings["connectionString"];
 
+        System.IO.Directory.CreateDirectory(ConfigurationManager.AppSettings["connectionLocation"]);
         conn = new SQLiteConnection(string.Format("Data Source={0};Version=3;", connectionString));
         CreateDataBase();
     }
