@@ -128,13 +128,8 @@ namespace BookSite.Controllers
         [HttpPost]
         public ActionResult AddNewBook(BookDetail selection)
         {
-            for (int x = 0; x < 10000; x++)
-            {
-                if (x % 100 == 0)
-                    Debug.WriteLine(string.Format("Here at {0}", x.ToString()));
-                _DatabaseController.Insert(selection);
-            }
-            // Todo Change this so it points to its own view
+
+            _DatabaseController.Insert(selection);
             return View("BookSubmitted", selection);
         }
         private BookDetail CleanXMLSearchResponse(XElement book)
