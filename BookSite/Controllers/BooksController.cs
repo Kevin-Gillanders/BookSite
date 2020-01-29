@@ -69,6 +69,7 @@ namespace BookSite.Controllers
                 book.Display = true;
                 GetAdditionalInformationXML(book);
 
+                book.GRScore = Math.Round(book.GRScore, 2);
                 results.Add(book);
             }
             return View("SelectBook", results);
@@ -105,12 +106,12 @@ namespace BookSite.Controllers
             book.Genre = "N/A";
             foreach (var node in doc.Descendants("popular_shelves").ToList())
                 foreach (Match match in Regex.Matches(node.ToString(), reGenre, RegexOptions.IgnoreCase))
-                    if (DeterminGenre(match.Groups[1].Value, book))
+                    if (DetermineGenre(match.Groups[1].Value, book))
                         break;
 
         }
 
-        private bool DeterminGenre(string value, BookDetail book)
+        private bool DetermineGenre(string value, BookDetail book)
         {
             foreach (KeyValuePair<string, List<string>> entry in _Genres)
             {
@@ -195,7 +196,7 @@ namespace BookSite.Controllers
                                 bookObj.YearOfPublication = Int32.Parse(val);
                                 break;
                             case "average_rating":
-                                bookObj.GRScore = float.Parse(val);
+                                bookObj.GRScore = double.Parse(val);
                                 break;
                         }
 

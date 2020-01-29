@@ -1,26 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace BookDAL
 {
     public class DatabaseController
     {
-        internal DbSet<BookDetail> _dbSet;
-        internal BookContext _context;
+        private readonly Database _context;
         public DatabaseController()
         {
-            _context = new BookContext();
-            _dbSet = _context.Set<BookDetail>();
+            _context =  new Database();
         }
         public void Insert(BookDetail selection)
         {
             try
             {
-                _dbSet.Add(selection);
-                _context.SaveChanges();
+                selection.ID = _context.Add(selection);
             }
             catch (Exception ex)
             {
@@ -29,38 +27,25 @@ namespace BookDAL
         }
         public List<BookDetail> Get()
         {
-            return _dbSet.Where(x => x.Display).ToList();
+            return _context.Read();
         }
 
         public void Update(BookDetail book)
         {
             try
             {
-                var oldBook = _dbSet
-                    .Where(x => x.ID == book.ID)
-                    .FirstOrDefault();
+                //var oldBook = _dbSet
+                //    .Where(x => x.ID == book.ID)
+                //    .FirstOrDefault();
 
-                if (oldBook == null)
-                    throw new ArgumentNullException();
+                //if (oldBook == null)
+                //    throw new ArgumentNullException();
 
-                _context.Entry(oldBook).CurrentValues.SetValues(book);
-                _context.SaveChanges();
+                //_context.Entry(oldBook).CurrentValues.SetValues(book);
+                //_context.SaveChanges();
+                _context.Update(book);
             }
             catch (Exception ex)
-            { 
-                Debug.WriteLine(ex.ToString()); 
-            }
-        }
-
-        public void Delete(BookDetail book)
-        {
-            try
-            {
-                _dbSet.Attach(book);
-                _dbSet.Remove(book);
-                _context.SaveChanges();
-            }
-            catch(Exception ex)
             {
                 Debug.WriteLine(ex.ToString());
             }

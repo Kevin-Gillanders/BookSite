@@ -1,4 +1,4 @@
-﻿@model BookDAL.BookDetail
+﻿@model BookDetail
 <style type="text/css">
 
     .Record {
@@ -7,7 +7,7 @@
         background-color: lightgoldenrodyellow;
         border-style: solid;
         border-width: thin;
-        min-height:170px;
+        min-height: 170px;
     }
 
     .CoverPicture {
@@ -21,14 +21,16 @@
         width: -webkit-min-content; /* Chrome */
         width: min-content;
     }
-    .CoverPicture img{
-        padding:5px;
-    }
+
+        .CoverPicture img {
+            padding: 5px;
+        }
 
     .BookDetail {
         margin-left: 15%;
         /*min-height: 200px;*/
     }
+
         .BookDetail ul {
             columns: 2;
             -webkit-columns: 2;
@@ -49,7 +51,7 @@
 </style>
 <div class="Record">
     <div class="CoverPicture">
-        <img src=@Model.ImageURL alt=@Model.BookTitle  />
+        <img src=@Model.ImageURL alt=@Model.BookTitle />
     </div>
     <div class="BookDetail">
         @using (Html.BeginForm("AddNewBook", "Books", FormMethod.Post))
@@ -76,7 +78,7 @@
             @Html.HiddenFor(x => x.NumberOfPages)
             @Html.HiddenFor(x => x.Genre)
             @Html.HiddenFor(x => x.Display)
-            
+
             <input type="submit" value="This one" class="btn btn-primary btn-large">
         }
 

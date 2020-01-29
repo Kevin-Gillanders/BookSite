@@ -1,4 +1,4 @@
-﻿@model List<BookDAL.BookDetail>
+﻿@model List<BookDetail>
 @{
     ViewBag.Title = "Details";
 }
@@ -6,7 +6,7 @@
 <h2>Details</h2>
 
 
-@foreach (BookDAL.BookDetail book in Model)
+@foreach (BookDetail book in Model)
 {
     @Html.Partial("_BookDetails", book)
 }

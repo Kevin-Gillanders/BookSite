@@ -1,5 +1,5 @@
 ﻿
-@model BookDAL.BookDetail
+@model BookDetail
 
 
 <div class="Record">
@@ -34,7 +34,6 @@
                         <li><label>Completed : </label><span style="color:red;"> Abandoned</span></li>
                     }
                 }
-                </li>
                 @if (Model.Completed || Model.DateCompleted != null)
                 {
                     <li>
