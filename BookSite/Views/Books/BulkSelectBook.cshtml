@@ -3,5 +3,16 @@
     ViewBag.Title = "BulkSelectBook";
 }
 
-<h2>BulkSelectBook</h2>
+<h2>Bulk Select Book</h2>
 
+@using (Html.BeginForm("BulkUploadNewBook", "Books", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    //Upload the files first and then ask if they're correct and if they aren't they can be removed
+    //Instead of providing the selection screen and asking if they want them uploaded
+    foreach (BookDetail book in Model)
+    {
+        @Html.Partial("_BookSelectionBulk", book)
+
+    }
+    <button type="submit">Submit list</button>
+}

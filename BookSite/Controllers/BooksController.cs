@@ -51,6 +51,14 @@ namespace BookSite.Controllers
         {
             //qjKmd5mVKWVXN2f5Wm3Lyg
 
+            List<BookDetail> results = QueryGoodReadsAPI(title);
+            return View("SelectBook", results);
+
+
+        }
+
+        private List<BookDetail> QueryGoodReadsAPI(string title)
+        {
             if (!string.IsNullOrEmpty(title))
             {
                 title = title.Trim().Replace(' ', '+').Replace("\'", "");
@@ -74,9 +82,7 @@ namespace BookSite.Controllers
                 book.GRScore = Math.Round(book.GRScore, 2);
                 results.Add(book);
             }
-            return View("SelectBook", results);
-
-
+            return results;
         }
 
         private void GetAdditionalInformationXML(BookDetail book)
@@ -260,9 +266,30 @@ namespace BookSite.Controllers
         {
             string path = UploadFile(books);
             List<BookDetail> bookSelection = new List<BookDetail>();
-            foreach(string line in System.IO.File.ReadLines(path))
+            IEnumerable<string> lines = System.IO.File.ReadLines(path);
+            List<string> keys = new List<string>();
+
+            for (int idx = 0;  idx < lines.Count(); idx++  )
             {
-                Debug.WriteLine(line);
+
+                if (idx == 0)
+                {
+                    keys = lines.ElementAt(idx).Split(',').ToList<string>();
+                    continue;
+                }
+                else
+                {
+
+                    var dict = keys.Zip(lines.ElementAt(idx).Split(',').ToList<string>(), (k, v) => new { k, v })
+                               .ToDictionary(x => x.k, x => x.v);
+
+                    BookDetail book = QueryGoodReadsAPI(dict["Title"])[0];
+                    book.DateStarted = DateTime.Parse(dict["Started"]);
+                    book.DateCompleted = (string.IsNullOrEmpty(dict["Finished"]) ? (DateTime?)null : DateTime.Parse(dict["Finished"]));
+                    book.Completed = (!string.IsNullOrEmpty(dict["Finished"]) ? true : false);
+                    
+                    bookSelection.Add(book);
+                }
             }
 
             return View("BulkSelectBook", bookSelection);
@@ -289,6 +316,12 @@ namespace BookSite.Controllers
                 ViewBag.Message = "You have not specified a file.";
             }
             return path;
+        }
+
+        [HttpPost]
+        public ActionResult BulkUploadNewBook(List<Tuple<BookDetail, bool>> selections)
+        {
+            return View();
         }
     }
 }

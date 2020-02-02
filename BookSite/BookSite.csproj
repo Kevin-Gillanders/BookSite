@@ -194,6 +194,7 @@
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
     <Content Include="Views\Books\BulkSelectBook.cshtml" />
+    <Content Include="Views\Books\_BookSelectionBulk.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
