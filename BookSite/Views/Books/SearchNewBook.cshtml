@@ -4,13 +4,23 @@
 
     <h2>Add a new book</h2>
 
-<div id="SearchForBook">
+    <div id="SearchForBook">
 
-    <p>
-        @using(Html.BeginForm("SelectNewBook", "Books", FormMethod.Get))
-        {
-            <input type="text" name="Title" placeholder="Enter book title">
-            <button type="submit">Add book</button>
-        }
-    </p>
-</div>
+        <p>
+            @using (Html.BeginForm("SelectNewBook", "Books", FormMethod.Get))
+            {
+                <input type="text" name="Title" placeholder="Enter book title">
+                <button type="submit">Add book</button>
+            }
+        </p>
+    </div>
+    <div id="UploadList">
+        <p>
+            @using (Html.BeginForm("BulkSelectNewBook", "Books", FormMethod.Post, new { enctype = "multipart/form-data" })) 
+            {
+                <label for="books">File Upload :</label>
+                <input type="file" name="books" accept=".csv">
+                <button type="submit">Submit list</button>
+            }
+        </p>
+    </div>

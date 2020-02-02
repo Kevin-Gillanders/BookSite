@@ -4,9 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
+using System.Web;
 using System.Web.Mvc;
 using System.Xml.Linq;
 
@@ -253,5 +255,40 @@ namespace BookSite.Controllers
             return View("Details", new List<BookDetail> { book });
         }
 
+        [HttpPost]
+        public ActionResult BulkSelectNewBook(HttpPostedFileBase books)
+        {
+            string path = UploadFile(books);
+            List<BookDetail> bookSelection = new List<BookDetail>();
+            foreach(string line in System.IO.File.ReadLines(path))
+            {
+                Debug.WriteLine(line);
+            }
+
+            return View("BulkSelectBook", bookSelection);
+        }
+
+        private string UploadFile(HttpPostedFileBase books)
+        {
+            string path = "";
+            if (books != null && books.ContentLength > 0)
+                try
+                {
+                    System.IO.Directory.CreateDirectory(Server.MapPath("~/BookList/"));
+                    path = Path.Combine(Server.MapPath("~/BookList/"),
+                                               Path.GetFileName(books.FileName));
+                    books.SaveAs(path);
+                    ViewBag.Message = "File uploaded successfully";
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = "ERROR:" + ex.Message.ToString();
+                }
+            else
+            {
+                ViewBag.Message = "You have not specified a file.";
+            }
+            return path;
+        }
     }
 }
