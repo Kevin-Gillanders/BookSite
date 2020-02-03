@@ -17,6 +17,7 @@
     $(document).ready(function () {
         $("#deleteBtn").on('click', function () {
             var confirmed = confirm('Are you sure?');
+            //TODO This needs to be refactored, pass the ID to the method when its called
             var id = parseInt($($(this).parent()[0]).serializeArray()[1].value);
             console.log(id);
             if (confirmed) {
