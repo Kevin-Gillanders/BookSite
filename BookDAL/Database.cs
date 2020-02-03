@@ -113,6 +113,49 @@ public class Database
         }
     }
 
+    public void Update(int bookID)
+    {
+        
+        BookDetail book = Read(bookID);
+        book.Display = false;
+        conn.Open();
+        using (var localTransaction = conn.BeginTransaction())
+        {
+
+            try
+            {
+                var createQuery = new SQLiteCommand("UPDATE Books " +
+                                                    "set " +
+                                                        "DateCompleted = :DateCompleted, " +
+                                                        "Score = :Score, " +
+                                                        "Completed = :Completed, " +
+                                                        "Display = :Display " +
+                                                    "WHERE ID = :ID", conn);
+
+                createQuery.Parameters.AddWithValue("DateCompleted", book.DateCompleted);
+                createQuery.Parameters.AddWithValue("Score", book.Score);
+                createQuery.Parameters.AddWithValue("Completed", book.Completed);
+                createQuery.Parameters.AddWithValue("Display", book.Display);
+                createQuery.Parameters.AddWithValue("ID", book.ID);
+
+                createQuery.CommandType = CommandType.Text;
+
+                createQuery.ExecuteNonQuery();
+                localTransaction.Commit();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.ToString());
+                localTransaction.Rollback();
+            }
+
+            finally
+            {
+                conn.Close();
+            }
+        }
+    }
+
     public List<BookDetail> Read()
     {
         conn.Open();
@@ -139,6 +182,38 @@ public class Database
             conn.Close();
         }
         return books;
+
+    }
+    
+    public BookDetail Read(int bookID)
+    {
+        // TODO refactor this
+        conn.Open();
+        BookDetail book = new BookDetail();
+        try
+        {
+            using (SQLiteCommand fmd = conn.CreateCommand())
+            {
+                fmd.CommandText = @"select * from books where Display = 1 and ID = :bookID ORDER BY ID DESC;";
+                fmd.CommandType = CommandType.Text;
+                fmd.Parameters.AddWithValue("bookID", bookID);
+
+                SQLiteDataReader records = fmd.ExecuteReader();
+                while (records.Read())
+                {
+                    book = MapSQLToObject(records);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.ToString());
+        }
+        finally
+        {
+            conn.Close();
+        }
+        return book;
 
     }
 

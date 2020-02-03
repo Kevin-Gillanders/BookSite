@@ -260,6 +260,13 @@ namespace BookSite.Controllers
             _DatabaseController.Update(book);
             return View("Details", new List<BookDetail> { book });
         }
+        [HttpPost]
+        public ActionResult DeleteBulk(int book)
+        {
+            
+            _DatabaseController.Update(book);
+            return View("Details", new List<BookDetail> {  });
+        }
 
         [HttpPost]
         public ActionResult BulkSelectNewBook(HttpPostedFileBase books)

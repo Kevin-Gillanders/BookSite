@@ -41,5 +41,16 @@ namespace BookDAL
                 Debug.WriteLine(ex.ToString());
             }
         }
+        public void Update(int bookID)
+        {
+            try
+            {
+                _context.Update(bookID);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.ToString());
+            }
+        }
     }
 }

@@ -3,6 +3,8 @@
     ViewBag.Title = "BulkSelectBook";
 }
 
+@Scripts.Render("~/bundles/jquery")
+
 <h2>Bulk Select Book</h2>
 
 
@@ -16,19 +18,20 @@
 }
 
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-
 <script>
     $(document).ready(function () {
         $("#deleteBtn").on('click', function () {
             var confirmed = confirm('Are you sure?');
+            console.log($(this).parent());
             if (confirmed) {
                 $.ajax({
                     type: "POST",
+                    contentType: "application/json; charset=utf-8",
                     url: "@Url.Action("Delete", "Books")",
-                    data: JSON.stringify(this),
-                    success: success
-                });
+                    dataType: "json",
+                    data: JSON.stringify($(this)),
+                    success: function () { console.log("Did it") }
+                })
             }
         });
     });
