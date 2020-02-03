@@ -283,10 +283,15 @@ namespace BookSite.Controllers
                     var dict = keys.Zip(lines.ElementAt(idx).Split(',').ToList<string>(), (k, v) => new { k, v })
                                .ToDictionary(x => x.k, x => x.v);
 
-                    BookDetail book = QueryGoodReadsAPI(dict["Title"])[0];
+                    var goodreadsResp = QueryGoodReadsAPI(dict["Title"]);
+
+                    BookDetail book = goodreadsResp[0];
                     book.DateStarted = DateTime.Parse(dict["Started"]);
                     book.DateCompleted = (string.IsNullOrEmpty(dict["Finished"]) ? (DateTime?)null : DateTime.Parse(dict["Finished"]));
                     book.Completed = (!string.IsNullOrEmpty(dict["Finished"]) ? true : false);
+                    book.Score = (!string.IsNullOrEmpty(dict["Finished"]) ? float.Parse(dict["Score"]) : (float?)null);
+
+                    _DatabaseController.Insert(book);
                     
                     bookSelection.Add(book);
                 }
@@ -319,7 +324,7 @@ namespace BookSite.Controllers
         }
 
         [HttpPost]
-        public ActionResult BulkUploadNewBook(List<Tuple<BookDetail, bool>> selections)
+        public ActionResult BulkUploadNewBook(IEnumerable<Tuple<BookDetail, bool>> selections)
         {
             return View();
         }

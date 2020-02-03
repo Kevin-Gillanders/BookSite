@@ -5,14 +5,32 @@
 
 <h2>Bulk Select Book</h2>
 
-@using (Html.BeginForm("BulkUploadNewBook", "Books", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    //Upload the files first and then ask if they're correct and if they aren't they can be removed
-    //Instead of providing the selection screen and asking if they want them uploaded
-    foreach (BookDetail book in Model)
-    {
-        @Html.Partial("_BookSelectionBulk", book)
 
-    }
-    <button type="submit">Submit list</button>
+@*Upload the files first and then ask if they're correct and if they aren't they can be removed
+    Instead of providing the selection screen and asking if they want them uploaded*@
+
+
+@foreach (BookDetail book in Model)
+{
+    @Html.Partial("_BookSelectionBulk", book)
 }
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#deleteBtn").on('click', function () {
+            var confirmed = confirm('Are you sure?');
+            if (confirmed) {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("Delete", "Books")",
+                    data: JSON.stringify(this),
+                    success: success
+                });
+            }
+        });
+    });
+
+</script>

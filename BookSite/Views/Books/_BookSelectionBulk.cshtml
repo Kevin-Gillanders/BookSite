@@ -7,65 +7,60 @@
         <img src=@Model.ImageURL alt=@Model.BookTitle />
     </div>
     <div class="BookDetail">
-        <ul>
-            <li><label>Number : </label> @Model.ID</li>
-            <li><label>Author : </label> @Model.Author</li>
-            <li><label>Title : </label> @Model.BookTitle</li>
-            <li><label>Pages : </label> @Model.NumberOfPages</li>
-            <li><label>Score on GoodReads : </label> @Model.GRScore / 5</li>
-            <li><label>Amount of reviews on GoodReads : </label> @Model.AmountOfGRReviews</li>
-            <li><label>Year of publication : </label> @Model.YearOfPublication</li>
-            <li><label>Genre : </label> @Model.Genre</li>
-            <li><label>Started : </label> @Model.DateStarted</li>
-            <li><label>Finished : </label> @Model.DateCompleted</li>
+        <form>
+            <ul>
+                <li><label>Number : </label> @Model.ID</li>
+                <li><label>Author : </label> @Model.Author</li>
+                <li><label>Title : </label> @Model.BookTitle</li>
+                <li><label>Pages : </label> @Model.NumberOfPages</li>
+                <li><label>Score on GoodReads : </label> @Model.GRScore / 5</li>
+                <li><label>Amount of reviews on GoodReads : </label> @Model.AmountOfGRReviews</li>
+                <li><label>Year of publication : </label> @Model.YearOfPublication</li>
+                <li><label>Genre : </label> @Model.Genre</li>
+                <li><label>Started : </label> @Model.DateStarted</li>
+                <li><label>Finished : </label> @Model.DateCompleted</li>
 
-            @if (Model.Completed)
-            {
-                <li><label>Completed : </label> Yes</li>
-            }
-            else
-            {
-                if (Model.DateCompleted == null)
+                @if (Model.Completed)
                 {
-                    <li><label>Completed : </label> No</li>
+                    <li><label>Completed : </label> Yes</li>
                 }
                 else
                 {
-                    <li><label>Completed : </label><span style="color:red;"> Abandoned</span></li>
+                    if (Model.DateCompleted == null)
+                    {
+                        <li><label>Completed : </label> No</li>
+                    }
+                    else
+                    {
+                        <li><label>Completed : </label><span style="color:red;"> Abandoned</span></li>
+                    }
                 }
-            }
-            @if (Model.Completed || Model.DateCompleted != null)
-            {
-                <li>
-                    <label>Score : </label>
-                    @Model.Score
-                    @Html.HiddenFor(x => x.Score)
+                @if (Model.Completed || Model.DateCompleted != null)
+                {
+                    <li>
+                        <label>Score : </label>
+                        @Model.Score
+                        @Html.HiddenFor(x => x.Score)
 
-                </li>
-            }
-            else
-            {
-                <li>
-                    <label>Score : </label>
-                    @Html.TextBoxFor(x => x.Score, new { @class = "form-control" })
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <label>Score : </label>
+                        @Html.TextBoxFor(x => x.Score, new { @class = "form-control" })
 
-                </li>
+                    </li>
 
-            }
+                }
 
-        </ul>
+            </ul>
 
-
-        <div>
-            @*@Html.ActionLink("Go to details page", "Details", "Books", null, new { @class = "btn btn-primary btn-large" })*@
-            
-            
-            
+            @Html.HiddenFor(x => x.ID)
             @Html.HiddenFor(x => x.BookTitle)
             @Html.HiddenFor(x => x.Author)
             @Html.HiddenFor(x => x.ISBN)
             @Html.HiddenFor(x => x.DateStarted)
-            @Html.HiddenFor(x => x.Score)
             @Html.HiddenFor(x => x.GoodreadsID)
             @Html.HiddenFor(x => x.YearOfPublication)
             @Html.HiddenFor(x => x.AmountOfGRReviews)
@@ -75,9 +70,29 @@
             @Html.HiddenFor(x => x.Genre)
             @Html.HiddenFor(x => x.Display)
 
-            @Html.CheckBox("correct", true)
-        </div>
+        <div>
 
+            @*<input type="submit"
+                   formaction="Completed"
+                   formmethod="post"
+                   value="Complete"
+                   class="btn btn-primary btn-large" />
+
+            <input type="submit"
+                   formaction="GiveUp"
+                   formmethod="post"
+                   value="Give up"
+                   class="btn btn-primary btn-large" />*@
+
+            @*Change this to be an ajax call and can stay on the same page*@
+            <input type="button"
+                   value="Remove this"
+                   class="btn btn-primary btn-large"
+                   id="deleteBtn" />
+
+
+        </div>
+        </form>
 
     </div>
 </div>
