@@ -14,26 +14,29 @@
 
 @foreach (BookDetail book in Model)
 {
+    
     @Html.Partial("_BookSelectionBulk", book)
 }
 
 
 <script>
     $(document).ready(function () {
-        $("#deleteBtn").on('click', function () {
+        $("[id^=deleteBtn]").on('click', function () {
             var confirmed = confirm('Are you sure?');
-            console.log($(this).parent());
+            //TODO This needs to be refactored, pass the ID to the method when its called
+            var bookDOM = $(this).parents()[2];
+            console.log(bookDOM);
+            //console.log($($(bookDOM.parent()[0]).parent()).parent());
+            var id = parseInt($($(this).parent()[0]).serializeArray()[1].value);
+            console.log(id);
             if (confirmed) {
                 $.ajax({
                     type: "POST",
-                    contentType: "application/json; charset=utf-8",
-                    url: "@Url.Action("Delete", "Books")",
-                    dataType: "json",
-                    data: JSON.stringify($(this)),
-                    success: function () { console.log("Did it") }
+                    url: "@Url.Action("DeleteBulk", "Books")",
+                    data: { book: id },
+                    success: function () { console.log(bookDOM); $(bookDOM).hide(); }
                 })
             }
         });
     });
-
 </script>

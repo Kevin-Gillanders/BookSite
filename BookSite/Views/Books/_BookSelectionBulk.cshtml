@@ -71,23 +71,23 @@
             @Html.HiddenFor(x => x.Display)
 
 
-            @*<input type="submit"
-                   formaction="Completed"
-                   formmethod="post"
-                   value="Complete"
-                   class="btn btn-primary btn-large" />
-
             <input type="submit"
-                   formaction="GiveUp"
-                   formmethod="post"
-                   value="Give up"
-                   class="btn btn-primary btn-large" />*@
+               formaction="Completed"
+               formmethod="post"
+               value="Complete"
+               class="btn btn-primary btn-large" />
+
+        <input type="submit"
+               formaction="GiveUp"
+               formmethod="post"
+               value="Give up"
+               class="btn btn-primary btn-large" />
 
             @*Change this to be an ajax call and can stay on the same page*@
             <input type="button"
                    value="Remove this"
                    class="btn btn-primary btn-large"
-                   id="deleteBtn" />
+                   id="@("deleteBtn" + Model.ID)" />
 
 
         </form>

@@ -15,17 +15,20 @@
 
 <script>
     $(document).ready(function () {
-        $("#deleteBtn").on('click', function () {
+        $("[id^=deleteBtn]").on('click', function () {
             var confirmed = confirm('Are you sure?');
             //TODO This needs to be refactored, pass the ID to the method when its called
+            var bookDOM = $(this).parents()[2];
+            console.log(bookDOM);
+            //console.log($($(bookDOM.parent()[0]).parent()).parent());
             var id = parseInt($($(this).parent()[0]).serializeArray()[1].value);
             console.log(id);
             if (confirmed) {
                 $.ajax({
                     type: "POST",
                     url: "@Url.Action("DeleteBulk", "Books")",
-                    data: { book : id },
-                    success: function () { console.log("Did it") }
+                    data: { book: id },
+                    success: function () { console.log(bookDOM); $(bookDOM).hide(); }
                 })
             }
         });
