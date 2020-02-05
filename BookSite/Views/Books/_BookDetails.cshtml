@@ -2,7 +2,7 @@
 @model BookDetail
 
 
-<div class="Record">
+<div class="Record" id="@("Record" + Model.ID)">
     <div class="CoverPicture">
         <img src=@Model.ImageURL alt=@Model.BookTitle />
     </div>

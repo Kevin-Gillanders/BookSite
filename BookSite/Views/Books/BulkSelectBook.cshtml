@@ -3,7 +3,8 @@
     ViewBag.Title = "BulkSelectBook";
 }
 
-@Scripts.Render("~/bundles/jquery")
+<script src="~/Scripts/jquery-3.4.1.min.js" charset="utf-8"></script>
+<script src="~/Scripts/modernizr-2.8.3.js" charset="utf-8"></script>
 
 <h2>Bulk Select Book</h2>
 
@@ -14,14 +15,15 @@
 
 @foreach (BookDetail book in Model)
 {
-    
+
     @Html.Partial("_BookSelectionBulk", book)
 }
 
 
 <script>
     $(document).ready(function () {
-        $("[id^=deleteBtn]").on('click', function () {
+        $("[id^=deleteBtn]").on('click', function (e) {
+            e.preventDefault();
             var confirmed = confirm('Are you sure?');
             //TODO This needs to be refactored, pass the ID to the method when its called
             var bookDOM = $(this).parents()[2];
@@ -34,8 +36,14 @@
                     type: "POST",
                     url: "@Url.Action("DeleteBulk", "Books")",
                     data: { book: id },
-                    success: function () { console.log(bookDOM); $(bookDOM).hide(); }
+                    success: function () {
+
+                    }
                 })
+                console.log($(bookDOM));
+                $(bookDOM).hide();
+                $(bookDOM).css('visibility', 'hidden');
+                return true;
             }
         });
     });
